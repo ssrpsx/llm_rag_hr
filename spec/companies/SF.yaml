@@ -1,0 +1,124 @@
+# SiamFoods Group (SF) - FICTIONAL company (food manufacturing). Single source of truth for numbers.
+code: SF
+id: 2
+name_th: สยามฟู้ดส์ กรุ๊ป
+name_en: SiamFoods Group Co., Ltd.
+aliases: [สยามฟู้ดส์, SiamFoods, Siam Foods]
+industry_th: ผลิตอาหารแปรรูป
+industry_en: Food Manufacturing
+domain: siamfoods.example
+hr_system: SF-HRM
+headquarters:
+  name_th: โรงงานสยามฟู้ดส์ สมุทรสาคร
+  name_en: SiamFoods Samut Sakhon Plant
+  address_th: 88/8 หมู่ 4 ถนนเอกชัย ต.บ้านบ่อ อ.เมือง จ.สมุทรสาคร 74000
+  address_en: 88/8 Moo 4, Ekkachai Rd., Ban Bo, Mueang, Samut Sakhon 74000
+contacts:
+  hr:
+    email: hr@siamfoods.example
+    ext: "2100"
+    line_oa: "@siamfoods-hr"
+    hours_th: จันทร์–เสาร์ 08:00–17:00 (ตู้รับเรื่องหน้าโรงอาหารตลอด 24 ชั่วโมง)
+    location_th: อาคารสำนักงาน ชั้น 2 ห้อง HR
+    location_en: Office Building, Floor 2, HR Room
+  it:
+    email: it@siamfoods.example
+    ext: "2200"
+    hours_th: จันทร์–ศุกร์ 08:00–17:00
+    channel_th: โทรต่อ 2200 หรือแจ้งผ่านหัวหน้างาน
+    location_th: อาคารสำนักงาน ชั้น 1 ห้อง IT
+  payroll:
+    email: payroll@siamfoods.example
+    ext: "2110"
+  reception:
+    ext: "2000"
+  security:
+    ext: "2999"
+leave:
+  vacation_tiers:
+    - {min_years: 0, days: 6}
+    - {min_years: 1, days: 8}
+    - {min_years: 3, days: 10}
+    - {min_years: 5, days: 12}
+  vacation_notice_days: 7
+  vacation_carry_over_max: 3
+  vacation_carry_over_expiry_th: 31 มีนาคมของปีถัดไป
+  vacation_cash_out: true
+  vacation_cash_out_max_days: 3
+  sick_days: 30
+  sick_cert_after_days: 2
+  sick_notify_th: แจ้งหัวหน้ากะหรือหัวหน้างานทางโทรศัพท์ก่อนเริ่มกะอย่างน้อย 2 ชั่วโมง
+  personal_days: 3
+  personal_notice_days: 2
+  maternity_days_total: 98
+  maternity_company_paid_days: 45
+  paternity_days: 3
+  ordination_days: 15
+  ordination_min_tenure_years: 2
+  wedding_days: 1
+  bereavement_days: 3
+  approve_within_days: 3
+work:
+  hours_th: ฝ่ายผลิตทำงาน 3 กะหมุนเวียนรายสัปดาห์ เช้า 06:00–14:00 บ่าย 14:00–22:00 ดึก 22:00–06:00 พนักงานสำนักงาน จันทร์–ศุกร์ 08:00–17:00
+  mode_th: ไม่มี WFH สำหรับพนักงานฝ่ายผลิต พนักงานสำนักงานทำงานที่บ้านได้เดือนละ 2 วันเมื่อหัวหน้าอนุมัติ
+  wfh_days_per_week: 0
+  late_rule_th: สายเกิน 10 นาทีหักเวลาตามจริงเป็นหน่วย 15 นาที สายเกิน 3 ครั้งต่อเดือนมีผลต่อเบี้ยขยัน
+  ot_rule_th: OT วันทำงานปกติ 1.5 เท่า วันหยุดชั่วโมงปกติ 2 เท่า และ OT ในวันหยุด 3 เท่า
+  ot_weekday_x: 1.5
+  ot_holiday_x: 2
+  ot_holiday_ot_x: 3
+  night_shift_allowance: 120
+pay:
+  payday_day: 30
+  payday_rule_th: สิ้นเดือน (วันที่ 30) หากตรงวันหยุดจ่ายก่อนหนึ่งวันทำการ
+  cutoff_day: 25
+  provident_employee_pct: 3
+  provident_company_pct: 3
+  provident_min_tenure_months: 12
+  bonus_rule_th: โบนัสประจำปี 1–2 เดือน และเบี้ยขยัน 500 บาทต่อเดือนเมื่อไม่ขาดไม่ลาไม่สาย
+benefits:
+  ipd_limit: 60000
+  opd_limit_per_visit: 1000
+  opd_visits_per_year: 20
+  checkup_th: ตรวจสุขภาพประจำปีฟรี รวมตรวจปัสสาวะและเอกซเรย์ปอดสำหรับพนักงานฝ่ายผลิต
+  insurer_th: บริษัทประกัน Beta Care (สมมติ)
+expense:
+  meal_per_day: 150
+  hotel_per_night: 1500
+  claim_deadline_days: 15
+  taxi_rule_th: เบิกค่าแท็กซี่ได้เฉพาะกรณีติดต่อลูกค้าหรือซัพพลายเออร์นอกโรงงาน และต้องได้รับอนุมัติล่วงหน้าจากผู้จัดการ
+hr_process:
+  probation_days: 119
+  notice_days: 30
+  notice_days_operator: 15
+  clearance_days: 5
+  employment_cert_days: 5
+  salary_cert_days: 5
+  final_pay_th: ชำระเงินเดือนงวดสุดท้ายและเงินอื่น ๆ ภายใน 7 วันทำการหลังวันทำงานวันสุดท้ายเมื่อเคลียร์ทรัพย์สินครบ
+training_budget_per_year: 10000
+training_bond_th: คอร์สที่บริษัทออกค่าใช้จ่ายเกิน 15,000 บาท ต้องทำสัญญาอยู่ต่ออย่างน้อย 6 เดือน
+holidays:
+  skip: ["05-04", "06-03", "10-13", "10-23", "12-31"]
+  extra:
+    - {date: "2026-01-02", name_th: ปิดโรงงานประจำปี, name_en: Annual Plant Shutdown, note_th: ปิดโรงงานเพื่อตรวจสอบสายการผลิต}
+    - {date: "2026-08-14", name_th: ปิดโรงงานบำรุงรักษา, name_en: Plant Maintenance Shutdown, note_th: ปิดโรงงานบำรุงรักษาเครื่องจักร}
+    - {date: "2026-12-30", name_th: ปิดโรงงานสิ้นปี, name_en: Year-end Plant Shutdown, note_th: ปิดโรงงานสิ้นปี}
+  work_note_th: สายการผลิตที่ต้องเดินเครื่องต่อเนื่องอาจให้ทำงานในวันหยุดโดยได้รับค่าจ้างวันหยุดตามอัตรา OT
+extras_facts:
+  - {doc_id: sf_shift_ot, values: [120, 1.5, 3]}
+  - {doc_id: sf_safety_gmp, values: [3]}
+  - {doc_id: sf_shuttle_canteen, values: [5]}
+org:
+  - {role: executive, dept_th: ผู้บริหาร, dept_en: Executive, position_th: กรรมการผู้จัดการ, position_en: Managing Director, level: Executive, count: 1, band: [150000, 190000]}
+  - {role: hr, dept_th: ฝ่ายทรัพยากรบุคคล, dept_en: Human Resources, position_th: ผู้จัดการฝ่ายทรัพยากรบุคคล, position_en: HR Manager, level: Manager, count: 1, band: [60000, 85000]}
+  - {role: hr, dept_th: ฝ่ายทรัพยากรบุคคล, dept_en: Human Resources, position_th: เจ้าหน้าที่ทรัพยากรบุคคล, position_en: HR Officer, level: Junior, count: 1, band: [22000, 32000]}
+  - {role: manager, dept_th: ฝ่ายผลิต, dept_en: Production, position_th: ผู้จัดการฝ่ายผลิต, position_en: Production Manager, level: Manager, count: 1, band: [70000, 95000]}
+  - {role: manager, dept_th: ฝ่ายควบคุมคุณภาพ, dept_en: Quality Control, position_th: ผู้จัดการฝ่ายควบคุมคุณภาพ, position_en: QC Manager, level: Manager, count: 1, band: [60000, 85000]}
+  - {role: manager, dept_th: ฝ่ายซัพพลายเชนและธุรการ, dept_en: Supply Chain & Admin, position_th: ผู้จัดการฝ่ายซัพพลายเชนและธุรการ, position_en: Supply Chain & Admin Manager, level: Manager, count: 1, band: [60000, 85000]}
+  - {role: employee, dept_th: ฝ่ายผลิต, dept_en: Production, position_th: พนักงานควบคุมเครื่องจักร, position_en: Machine Operator, level: Operator, count: 5, band: [13000, 16000]}
+  - {role: employee, dept_th: ฝ่ายผลิต, dept_en: Production, position_th: หัวหน้าสายการผลิต, position_en: Line Leader, level: Supervisor, count: 2, band: [18000, 24000]}
+  - {role: employee, dept_th: ฝ่ายผลิต, dept_en: Production, position_th: ช่างซ่อมบำรุง, position_en: Maintenance Technician, level: Technician, count: 1, band: [20000, 30000]}
+  - {role: employee, dept_th: ฝ่ายควบคุมคุณภาพ, dept_en: Quality Control, position_th: เจ้าหน้าที่ตรวจสอบคุณภาพ, position_en: QC Inspector, level: Junior, count: 2, band: [18000, 26000]}
+  - {role: employee, dept_th: ฝ่ายซัพพลายเชนและธุรการ, dept_en: Supply Chain & Admin, position_th: พนักงานคลังสินค้า, position_en: Warehouse Staff, level: Operator, count: 2, band: [14000, 18000]}
+  - {role: employee, dept_th: ฝ่ายซัพพลายเชนและธุรการ, dept_en: Supply Chain & Admin, position_th: พนักงานขับรถโฟล์คลิฟท์, position_en: Forklift Driver, level: Operator, count: 1, band: [16000, 21000]}
+  - {role: employee, dept_th: ฝ่ายซัพพลายเชนและธุรการ, dept_en: Supply Chain & Admin, position_th: เจ้าหน้าที่บัญชี, position_en: Accounting Officer, level: Junior, count: 1, band: [22000, 32000]}

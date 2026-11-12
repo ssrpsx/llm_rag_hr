@@ -1,0 +1,120 @@
+# Andaman Resort & Hotel (AR) - FICTIONAL company (hospitality). Single source of truth for numbers.
+code: AR
+id: 3
+name_th: อันดามัน รีสอร์ท แอนด์ โฮเทล
+name_en: Andaman Resort & Hotel Co., Ltd.
+aliases: [อันดามัน, Andaman, Andaman Resort]
+industry_th: โรงแรมและรีสอร์ท
+industry_en: Hospitality
+domain: andaman-resort.example
+hr_system: StaffDesk
+headquarters:
+  name_th: อันดามัน รีสอร์ท แอนด์ โฮเทล ภูเก็ต
+  name_en: Andaman Resort & Hotel Phuket
+  address_th: 45/9 ถนนหาดกะตะ ต.กะรน อ.เมือง จ.ภูเก็ต 83100
+  address_en: 45/9 Kata Beach Rd., Karon, Mueang, Phuket 83100
+contacts:
+  hr:
+    email: hr@andaman-resort.example
+    ext: "300"
+    line_oa: "@andaman-hr"
+    hours_th: ทุกวัน 08:00–16:00 (วันหยุดประจำสัปดาห์ของ HR คือวันอาทิตย์)
+    location_th: อาคารสำนักงานหลังบ้าน (Back of House) ชั้น 1
+    location_en: Back of House Office, Floor 1
+  it:
+    email: it@andaman-resort.example
+    ext: "310"
+    hours_th: ทุกวัน 08:00–20:00
+    channel_th: โทรต่อ 310 หรือกลุ่ม LINE "Andaman IT Help"
+    location_th: อาคารสำนักงานหลังบ้าน ชั้น 1 ห้อง IT
+  payroll:
+    email: payroll@andaman-resort.example
+    ext: "305"
+  reception:
+    ext: "0"
+  security:
+    ext: "399"
+leave:
+  vacation_tiers:
+    - {min_years: 0, days: 6}
+    - {min_years: 1, days: 8}
+    - {min_years: 3, days: 10}
+    - {min_years: 5, days: 12}
+  vacation_notice_days: 14
+  vacation_carry_over_max: 2
+  vacation_carry_over_expiry_th: 28 กุมภาพันธ์ของปีถัดไป
+  vacation_cash_out: false
+  vacation_blackout_th: 15 ธันวาคม – 15 มกราคม และ 10–16 เมษายน (ช่วง High Season)
+  sick_days: 30
+  sick_cert_after_days: 2
+  sick_cert_high_season_th: ในช่วง High Season ต้องมีใบรับรองแพทย์ตั้งแต่วันแรกที่ลาป่วย
+  sick_notify_th: แจ้งหัวหน้าแผนกทางโทรศัพท์ก่อนเริ่มกะอย่างน้อย 3 ชั่วโมง
+  personal_days: 3
+  personal_notice_days: 7
+  maternity_days_total: 98
+  maternity_company_paid_days: 45
+  paternity_days: 3
+  ordination_days: 15
+  ordination_min_tenure_years: 3
+  wedding_days: 3
+  bereavement_days: 3
+  approve_within_days: 3
+work:
+  hours_th: ทำงาน 6 วันต่อสัปดาห์ วันละ 8 ชั่วโมง (รวมพัก 1 ชั่วโมง) กะเช้า 07:00–15:00 กะบ่าย 15:00–23:00 และกะคั่น (split shift) ตามตารางที่ประกาศล่วงหน้า 7 วัน
+  mode_th: ไม่มี WFH ยกเว้นพนักงานสำนักงาน (HR การตลาด บัญชี) ที่ทำงานที่บ้านได้เดือนละ 1 วัน
+  wfh_days_per_week: 0
+  weekly_day_off_th: มีวันหยุดประจำสัปดาห์ 1 วัน หมุนเวียนตามตารางงาน
+  late_rule_th: สายเกิน 15 นาทีบันทึกเป็นการมาสาย สะสม 3 ครั้งต่อเดือนถูกตักเตือนด้วยวาจา
+  ot_rule_th: ทำงานเกิน 8 ชั่วโมงได้ OT 1.5 เท่า ทำงานในวันหยุดประจำสัปดาห์ได้ 2 เท่า ผู้จัดการระดับหัวหน้าแผนกไม่มี OT
+pay:
+  payday_day: 28
+  payday_rule_th: วันที่ 28 ของทุกเดือน หากตรงวันหยุดจ่ายก่อนหนึ่งวันทำการ ส่วน Service Charge จ่ายวันที่ 10 ของเดือนถัดไป
+  cutoff_day: 21
+  provident_employee_pct: 3
+  provident_company_pct: 3
+  provident_min_tenure_months: 24
+  bonus_rule_th: โบนัสประจำปี 0.5–1.5 เดือนตามผลประกอบการของรีสอร์ท จ่ายเดือนธันวาคม
+benefits:
+  ipd_limit: 50000
+  opd_limit_per_visit: 800
+  opd_visits_per_year: 12
+  checkup_th: ตรวจสุขภาพประจำปีฟรีรวมตรวจโรคติดต่อทางอาหารสำหรับพนักงานครัวและ F&B
+  insurer_th: บริษัทประกัน Gamma Shield (สมมติ)
+expense:
+  meal_per_day: 200
+  hotel_per_night: 1800
+  claim_deadline_days: 20
+  taxi_rule_th: เบิกค่าเดินทางเมื่อทำงานนอกสถานที่หรือเลิกงานหลัง 23:30 น. และไม่มีรถรับส่งพนักงาน
+hr_process:
+  probation_days: 119
+  notice_days: 30
+  notice_days_operator: 30
+  clearance_days: 5
+  employment_cert_days: 5
+  salary_cert_days: 5
+  final_pay_th: ชำระเงินเดือนงวดสุดท้าย Service Charge ค้างจ่าย และเงินอื่น ๆ ภายในรอบจ่ายเงินเดือนถัดไป
+training_budget_per_year: 8000
+training_bond_th: คอร์สที่บริษัทออกค่าใช้จ่ายเกิน 10,000 บาท ต้องทำสัญญาอยู่ต่ออย่างน้อย 6 เดือน
+holidays:
+  skip: ["04-06", "05-04", "06-03", "10-13", "10-23"]
+  extra: []
+  work_note_th: โรงแรมเปิดบริการทุกวัน พนักงานที่ต้องทำงานในวันหยุดนักขัตฤกษ์ได้ค่าแรงเพิ่ม 1 เท่า หรือเลือกวันหยุดชดเชยภายใน 30 วัน
+extras_facts:
+  - {doc_id: ar_service_charge, values: [10]}
+  - {doc_id: ar_staff_perks, values: [50, 30, 500]}
+  - {doc_id: ar_high_season, values: [14]}
+org:
+  - {role: executive, dept_th: ผู้บริหาร, dept_en: Executive, position_th: ผู้จัดการทั่วไป, position_en: General Manager, level: Executive, count: 1, band: [130000, 170000]}
+  - {role: hr, dept_th: ฝ่ายทรัพยากรบุคคล, dept_en: Human Resources, position_th: ผู้จัดการฝ่ายทรัพยากรบุคคล, position_en: HR Manager, level: Manager, count: 1, band: [55000, 80000]}
+  - {role: hr, dept_th: ฝ่ายทรัพยากรบุคคล, dept_en: Human Resources, position_th: ผู้ประสานงานทรัพยากรบุคคล, position_en: HR Coordinator, level: Junior, count: 1, band: [20000, 28000]}
+  - {role: manager, dept_th: ส่วนหน้า, dept_en: Front Office, position_th: ผู้จัดการส่วนหน้า, position_en: Front Office Manager, level: Manager, count: 1, band: [50000, 70000]}
+  - {role: manager, dept_th: ฝ่ายอาหารและเครื่องดื่ม, dept_en: Food & Beverage, position_th: ผู้จัดการฝ่ายอาหารและเครื่องดื่ม, position_en: F&B Manager, level: Manager, count: 1, band: [55000, 80000]}
+  - {role: manager, dept_th: ฝ่ายแม่บ้าน, dept_en: Housekeeping, position_th: หัวหน้าแม่บ้าน, position_en: Executive Housekeeper, level: Manager, count: 1, band: [45000, 65000]}
+  - {role: employee, dept_th: ส่วนหน้า, dept_en: Front Office, position_th: พนักงานต้อนรับส่วนหน้า, position_en: Receptionist, level: Junior, count: 2, band: [16000, 22000]}
+  - {role: employee, dept_th: ส่วนหน้า, dept_en: Front Office, position_th: พนักงานคอนเซียร์จ, position_en: Concierge, level: Junior, count: 1, band: [14000, 18000]}
+  - {role: employee, dept_th: ส่วนหน้า, dept_en: Front Office, position_th: ผู้ประสานงานฝ่ายขาย, position_en: Sales Coordinator, level: Junior, count: 1, band: [22000, 30000]}
+  - {role: employee, dept_th: ฝ่ายแม่บ้าน, dept_en: Housekeeping, position_th: พนักงานทำความสะอาดห้องพัก, position_en: Room Attendant, level: Operator, count: 3, band: [13000, 16000]}
+  - {role: employee, dept_th: ฝ่ายแม่บ้าน, dept_en: Housekeeping, position_th: ผู้ควบคุมงานแม่บ้าน, position_en: Housekeeping Supervisor, level: Supervisor, count: 1, band: [20000, 26000]}
+  - {role: employee, dept_th: ฝ่ายอาหารและเครื่องดื่ม, dept_en: Food & Beverage, position_th: พนักงานเสิร์ฟ, position_en: Waiter/Waitress, level: Junior, count: 3, band: [13000, 16000]}
+  - {role: employee, dept_th: ฝ่ายอาหารและเครื่องดื่ม, dept_en: Food & Beverage, position_th: บาร์เทนเดอร์, position_en: Bartender, level: Junior, count: 1, band: [16000, 22000]}
+  - {role: employee, dept_th: ฝ่ายอาหารและเครื่องดื่ม, dept_en: Food & Beverage, position_th: ผู้ช่วยกุ๊ก, position_en: Commis Chef, level: Junior, count: 2, band: [15000, 20000]}

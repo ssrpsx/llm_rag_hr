@@ -1,0 +1,119 @@
+# ThaiTech Software (TT) - FICTIONAL company. Single source of truth for numbers.
+# Policy .md files, the SQLite generator and the eval sets MUST agree with this file.
+code: TT
+id: 1
+name_th: ไทยเทค ซอฟต์แวร์
+name_en: ThaiTech Software Co., Ltd.
+aliases: [ไทยเทค, ThaiTech, Thai Tech]
+industry_th: ซอฟต์แวร์และบริการดิจิทัล
+industry_en: Software and Digital Services
+domain: thaitech.example
+hr_system: PeopleHub
+headquarters:
+  name_th: อาคารไทยเทค ทาวเวอร์
+  name_en: ThaiTech Tower
+  address_th: 99 ถนนพระราม 9 แขวงห้วยขวาง เขตห้วยขวาง กรุงเทพฯ 10310
+  address_en: 99 Rama 9 Rd., Huai Khwang, Bangkok 10310
+contacts:
+  hr:
+    email: hr@thaitech.example
+    ext: "1100"
+    line_oa: "@thaitech-hr"
+    hours_th: จันทร์–ศุกร์ 10:00–17:00
+    location_th: อาคารไทยเทค ทาวเวอร์ ชั้น 3 โซน HR
+    location_en: ThaiTech Tower, Floor 3, HR Zone
+  it:
+    email: ithelp@thaitech.example
+    ext: "1200"
+    hours_th: จันทร์–ศุกร์ 09:00–18:00
+    channel_th: Slack ช่อง #it-help
+    location_th: ชั้น 4 โซน IT Support
+  payroll:
+    email: payroll@thaitech.example
+    ext: "1110"
+  reception:
+    ext: "1000"
+  security:
+    ext: "1999"
+leave:
+  vacation_tiers:            # years of service -> vacation days per year
+    - {min_years: 0, days: 8}
+    - {min_years: 1, days: 12}
+    - {min_years: 3, days: 15}
+    - {min_years: 5, days: 18}
+  vacation_notice_days: 5
+  vacation_carry_over_max: 5
+  vacation_carry_over_expiry_th: 31 มีนาคมของปีถัดไป
+  vacation_cash_out: false
+  sick_days: 30
+  sick_cert_after_days: 3     # medical certificate required when sick >= this many consecutive days
+  sick_notify_th: แจ้งหัวหน้างานทาง Slack หรือโทรศัพท์ก่อน 10:00 น. ของวันที่ลา
+  personal_days: 5
+  personal_notice_days: 3
+  maternity_days_total: 120
+  maternity_company_paid_days: 60
+  paternity_days: 15
+  ordination_days: 15
+  ordination_min_tenure_years: 1
+  wedding_days: 3
+  bereavement_days: 3
+  approve_within_days: 2
+work:
+  hours_th: จันทร์–ศุกร์ 10:00–19:00 (พักเที่ยง 1 ชั่วโมง) มี core hours 11:00–16:00 ที่ทุกคนต้องออนไลน์
+  mode_th: Hybrid เข้าออฟฟิศอย่างน้อย 2 วันต่อสัปดาห์ (อังคารและพฤหัสบดี) ทำงานจากบ้านได้ 3 วันต่อสัปดาห์
+  wfh_days_per_week: 3
+  late_rule_th: ไม่หักเงินกรณีมาสาย แต่ต้องทำงานครบ 8 ชั่วโมงและอยู่ในช่วง core hours
+  ot_rule_th: ระดับ Junior–Mid ได้ค่าล่วงเวลา 1.5 เท่า ระดับ Senior ขึ้นไปไม่มี OT แต่ได้วันหยุดชดเชย (comp day)
+pay:
+  payday_day: 25
+  payday_rule_th: วันที่ 25 ของทุกเดือน หากตรงวันหยุดจ่ายก่อนหนึ่งวันทำการ
+  cutoff_day: 20
+  provident_employee_pct: 5
+  provident_company_pct: 5
+  provident_min_tenure_months: 0
+  bonus_rule_th: โบนัสผลงานประจำปี 1–3 เดือน จ่ายเดือนมีนาคม
+benefits:
+  ipd_limit: 100000
+  opd_limit_per_visit: 2000
+  opd_visits_per_year: 30
+  checkup_th: ตรวจสุขภาพประจำปีฟรี แพ็กเกจ Executive Lite ที่โรงพยาบาลคู่สัญญา
+  insurer_th: บริษัทประกัน Alpha Life (สมมติ)
+expense:
+  meal_per_day: 300
+  hotel_per_night: 2500
+  claim_deadline_days: 30
+  taxi_rule_th: เบิกค่าแท็กซี่/Grab ได้เมื่อมีใบเสร็จและเดินทางเพื่อพบลูกค้าหรือกลับหลัง 21:00 น. เมื่อทำงานล่วงเวลา
+hr_process:
+  probation_days: 119
+  notice_days: 30
+  notice_days_operator: 30
+  clearance_days: 7
+  employment_cert_days: 3
+  salary_cert_days: 3
+  final_pay_th: ชำระเงินเดือนงวดสุดท้ายและเงินอื่น ๆ ภายในรอบจ่ายเงินเดือนถัดไป
+training_budget_per_year: 30000
+training_bond_th: คอร์สที่บริษัทออกค่าใช้จ่ายเกิน 30,000 บาท ต้องทำสัญญาอยู่ต่ออย่างน้อย 12 เดือน
+holidays:
+  skip: ["05-04", "06-03", "10-23"]
+  extra:
+    - {date: "2026-01-02", name_th: วันหยุดพิเศษปีใหม่, name_en: New Year Extra Holiday, note_th: บริษัทประกาศหยุดเพิ่ม}
+    - {date: "2026-08-14", name_th: วันครบรอบบริษัท, name_en: Company Anniversary Day, note_th: Company Day}
+  work_note_th: ไม่มีการทำงานในวันหยุดนักขัตฤกษ์ ยกเว้นทีม on-call
+extras_facts:                # numbers that MUST appear in the company-specific docs
+  - {doc_id: tt_remote_equipment, values: [700, 3]}
+  - {doc_id: tt_esop, values: [4, 1]}
+  - {doc_id: tt_oncall_hackathon, values: [500]}
+org:                         # drives employees table. count = number of people
+  - {role: executive, dept_th: ผู้บริหาร, dept_en: Executive, position_th: ประธานเจ้าหน้าที่บริหาร, position_en: Chief Executive Officer, level: Executive, count: 1, band: [180000, 220000]}
+  - {role: hr, dept_th: ฝ่ายทรัพยากรบุคคล, dept_en: Human Resources, position_th: ผู้จัดการฝ่ายทรัพยากรบุคคล, position_en: HR Manager, level: Manager, count: 1, band: [80000, 110000]}
+  - {role: hr, dept_th: ฝ่ายทรัพยากรบุคคล, dept_en: Human Resources, position_th: เจ้าหน้าที่ทรัพยากรบุคคล, position_en: HR Officer, level: Junior, count: 1, band: [28000, 40000]}
+  - {role: manager, dept_th: ฝ่ายวิศวกรรม, dept_en: Engineering, position_th: ผู้จัดการฝ่ายวิศวกรรม, position_en: Engineering Manager, level: Manager, count: 1, band: [110000, 150000]}
+  - {role: manager, dept_th: ฝ่ายผลิตภัณฑ์, dept_en: Product, position_th: ผู้จัดการฝ่ายผลิตภัณฑ์, position_en: Product Manager, level: Manager, count: 1, band: [95000, 130000]}
+  - {role: manager, dept_th: ฝ่ายขาย, dept_en: Sales, position_th: ผู้จัดการฝ่ายขาย, position_en: Sales Manager, level: Manager, count: 1, band: [85000, 120000]}
+  - {role: employee, dept_th: ฝ่ายวิศวกรรม, dept_en: Engineering, position_th: วิศวกรซอฟต์แวร์, position_en: Software Engineer, level: Junior, count: 4, band: [45000, 70000]}
+  - {role: employee, dept_th: ฝ่ายวิศวกรรม, dept_en: Engineering, position_th: วิศวกรซอฟต์แวร์อาวุโส, position_en: Senior Software Engineer, level: Senior, count: 2, band: [75000, 110000]}
+  - {role: employee, dept_th: ฝ่ายวิศวกรรม, dept_en: Engineering, position_th: วิศวกรทดสอบซอฟต์แวร์, position_en: QA Engineer, level: Junior, count: 2, band: [35000, 55000]}
+  - {role: employee, dept_th: ฝ่ายวิศวกรรม, dept_en: Engineering, position_th: วิศวกร DevOps, position_en: DevOps Engineer, level: Senior, count: 1, band: [60000, 90000]}
+  - {role: employee, dept_th: ฝ่ายวิศวกรรม, dept_en: Engineering, position_th: นักวิเคราะห์ข้อมูล, position_en: Data Analyst, level: Junior, count: 1, band: [40000, 60000]}
+  - {role: employee, dept_th: ฝ่ายผลิตภัณฑ์, dept_en: Product, position_th: นักออกแบบประสบการณ์ผู้ใช้, position_en: UX Designer, level: Junior, count: 2, band: [40000, 65000]}
+  - {role: employee, dept_th: ฝ่ายขาย, dept_en: Sales, position_th: เจ้าหน้าที่ขาย, position_en: Sales Executive, level: Junior, count: 2, band: [30000, 50000]}

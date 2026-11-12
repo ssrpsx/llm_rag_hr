@@ -1,0 +1,462 @@
+# Evaluation set A — ชุดคำถามค้นคืนเอกสารนโยบาย (retrieval QA)
+# ใช้วัด Hit@1 / Hit@3 / MRR และ ablation ของ retriever
+# กฎ: คำถามต้องเขียนแบบพนักงานถามจริง (paraphrase ไม่ยกหัวข้อมาเป็นคำถามตรง ๆ)
+#       expect_docs = doc_id ที่ถือว่าตอบได้ถูกต้อง (1-3 ตัว)
+- id: R001
+  company: TT
+  role: employee
+  question: "มีสิทธิ์ลาอะไรได้บ้าง และต้องส่งคำขอที่ไหน"
+  expect_docs: [leave_overview]
+  tags: [leave, paraphrase]
+- id: R002
+  company: TT
+  role: employee
+  question: "วันพักร้อนได้กี่วันต่อปีขึ้นกับอายุงาน สิทธิ์วันลาเท่าไหร่ แล้วต้องแจ้งล่วงหน้ากี่วัน"
+  expect_docs: [vacation_policy]
+  tags: [leave]
+- id: R003
+  company: TT
+  role: employee
+  question: "ป่วยติดกันกี่วันถึงต้องมีใบรับรองแพทย์ แล้วต้องแจ้งใครก่อน"
+  expect_docs: [sick_leave, hr_faq]
+  tags: [leave]
+- id: R004
+  company: TT
+  role: employee
+  question: "จะไปแต่งงานหรือเก็บศพให้สามีภรรยา ได้ลาวันไหนบ้าง"
+  expect_docs: [special_leave]
+  tags: [leave, colloquial]
+- id: R005
+  company: TT
+  role: employee
+  question: "ประกันสุขภาพใช้ค่ารักษาได้ถึงเท่าไหร่ต่อครั้ง แล้วหักเข้ากองทุนสำรองเลี้ยงชีพกี่เปอร์เซ็นต์"
+  expect_docs: [benefits]
+  tags: [benefits]
+- id: R006
+  company: TT
+  role: employee
+  question: "ทีมซอฟต์เวร์กทำงานปกติชั่วโมงไหน แล้วทำงานที่บ้านได้สัปดาห์ละกี่วัน"
+  expect_docs: [working_time]
+  tags: [work]
+- id: R007
+  company: TT
+  role: employee
+  question: "เงินเดือนออกวันไหน"
+  expect_docs: [payroll]
+  tags: [pay, colloquial]
+- id: R008
+  company: TT
+  role: employee
+  question: "ไปติดต่อลูกค้านอกบริษัท เบิกค่าเดินทางกับค่าอาหารได้เท่าไหร่"
+  expect_docs: [expense]
+  tags: [pay]
+- id: R009
+  company: TT
+  role: employee
+  question: "ช่วงทดลองงานยาวกี่วัน แล้วจะมีการประเมินผลกันตอนไหน"
+  expect_docs: [onboarding]
+  tags: [career]
+- id: R010
+  company: TT
+  role: employee
+  question: "ถ้าจะออกจากงานต้องแจ้งล่วงหน้ากี่วัน แล้วเงินงวดสุดท้ายเข้าบัญชีเมื่อไหร่"
+  expect_docs: [resignation]
+  tags: [career]
+- id: R011
+  company: TT
+  role: employee
+  question: "โพสต์รูปงานลงโซเชียลได้ไหม มีข้อห้ามเรื่องข้อมูลลับหรือเสียงไหม"
+  expect_docs: [conduct]
+  tags: [career]
+- id: R012
+  company: TT
+  role: employee
+  question: "งบเรียนรู้ของพนักงานหนึ่งคนต่อปีเท่าไหร่ และคอร์สไหนที่ต้องทำสัญญาอยู่ต่อ"
+  expect_docs: [training]
+  tags: [career]
+- id: R013
+  company: TT
+  role: employee
+  question: "ลืมรหัสเข้า PeopleHub แล้วจะขอหนังสือรับรองเงินเดือนทำไง"
+  expect_docs: [hr_faq]
+  tags: [faq]
+- id: R014
+  company: TT
+  role: employee
+  question: "เน็ตในออฟฟิศใช้ไม่ได้ โน้ตบุ๊กก็ค้าง ส่งเรื่องให้ใครได้บ้าง"
+  expect_docs: [it_faq]
+  tags: [faq, colloquial]
+- id: R015
+  company: TT
+  role: employee
+  question: "เบอร์ติดต่อของแผนกหลัก HR IT Payroll และเสาธาระถน้ำคืนอยู่ตรงไหน"
+  expect_docs: [directory_contacts]
+  tags: [contact]
+- id: R016
+  company: TT
+  role: employee
+  question: "ทำงานที่บ้านมีค่าเฟซอินเทอร์เน็ตให้ไหม แล้วคอมที่ยืมไปต้องคืนเมื่อไหร่"
+  expect_docs: [tt_remote_equipment]
+  tags: [company_specific, work]
+- id: R017
+  company: TT
+  role: employee
+  question: "ESOP ของบริษัทต้องรอนานแค่ไหนถึงขึ้นหุ้นได้ แล้วใครมีสิทธิ์ขึ้น"
+  expect_docs: [tt_esop]
+  tags: [company_specific, career]
+- id: R018
+  company: TT
+  role: employee
+  question: "เวร on-call ได้ค่าเวรวันละเท่าไหร่ แล้ว Hackathon จัดตอนไหนบ้าง"
+  expect_docs: [tt_oncall_hackathon]
+  tags: [company_specific, work]
+- id: R019
+  company: TT
+  role: hr
+  question: "ขอช่วงเงินเดือนของตำแหน่งวิศวกรซอฟต์แวร์กับ Senior Software Engineer"
+  expect_docs: [salary_bands]
+  tags: [restricted, pay]
+- id: R020
+  company: TT
+  role: hr
+  question: "หัวหน้าทีมควรอนุมัติการลาและดูแล OT อย่างไรให้ถูกต้อง"
+  expect_docs: [manager_guide]
+  tags: [restricted, career]
+- id: R021
+  company: TT
+  role: employee
+  question: "วันลาที่เหลือเก็บข้ามปีได้มั้ย แล้วถ้าไม่ใช้มันหมดเป็นอะไร"
+  expect_docs: [vacation_policy]
+  tags: [leave, colloquial]
+- id: R022
+  company: TT
+  role: employee
+  question: "ตรวจสุขภาพประจำปีฟรีไหม แล้วมีประกันชีวิตกลุ่มให้ด้วยไหม"
+  expect_docs: [benefits]
+  tags: [benefits]
+- id: R023
+  company: TT
+  role: employee
+  question: "WFH ได้กี่วันต่อสัปดาห์ แล้วถ้าทำงานเกินเวลาปกติคิดค่าล่วงเวลายังไง"
+  expect_docs: [working_time, tt_remote_equipment]
+  tags: [work, english-mix]
+
+- id: R024
+  company: SF
+  role: employee
+  question: "พนักงานโรงงานมีการลาหน้าที่อะไรบ้าง แล้วใครเป็นคนอนุมัติให้"
+  expect_docs: [leave_overview]
+  tags: [leave, paraphrase]
+- id: R025
+  company: SF
+  role: employee
+  question: "ชาวแรงงานได้วันหยุดพักผ่อนกี่วัน แล้วสะสมไว้ข้ามปีได้เท่าไหร่"
+  expect_docs: [vacation_policy]
+  tags: [leave]
+- id: R026
+  company: SF
+  role: employee
+  question: "ป่วยแล้วต้องแจ้งใครก่อนเข้ากะ และป่วยกี่วันต้องมีใบรับรองแพทย์"
+  expect_docs: [sick_leave]
+  tags: [leave]
+- id: R027
+  company: SF
+  role: employee
+  question: "คลอดลูกได้ลากี่วัน แล้วบริษัทจ่ายให้กี่วัน"
+  expect_docs: [special_leave]
+  tags: [leave]
+- id: R028
+  company: SF
+  role: employee
+  question: "ตรวจสุขภาพประจำปีของคนในไลน์ผลิตมีอะไรบ้าง แล้วค่ารักษานอกโรงพยาบาลเท่าไหร่"
+  expect_docs: [benefits]
+  tags: [benefits]
+- id: R029
+  company: SF
+  role: employee
+  question: "กะเช้ากับกะดึกเริ่มงานกี่โมง"
+  expect_docs: [working_time]
+  tags: [work]
+- id: R030
+  company: SF
+  role: employee
+  question: "สลิปเงินเดือนออกวันไหน แล้วเบี้ยขยันของเดือนนี้ได้เงินเท่าไหร่"
+  expect_docs: [payroll]
+  tags: [pay]
+- id: R031
+  company: SF
+  role: employee
+  question: "ไปติดต่อลูกค้านอกโรงงาน เบิกค่าแท็กซี่ได้ไหม ได้เท่าไหร่"
+  expect_docs: [expense]
+  tags: [pay]
+- id: R032
+  company: SF
+  role: employee
+  question: "คนใหม่ต้องทดลองงานนานเท่าไหร่ แล้วต้องเตรียมเอกสารอะไรบ้าง"
+  expect_docs: [onboarding]
+  tags: [career]
+- id: R033
+  company: SF
+  role: employee
+  question: "คนงานระดับปฏิบัติการจะออกจากงานต้องแจ้งล่วงหน้ากี่วัน"
+  expect_docs: [resignation]
+  tags: [career]
+- id: R034
+  company: SF
+  role: employee
+  question: "พนักงานโรงงานมีข้อห้ามเรื่องการเก็บความลับของบริษัทและการโพสต์บนโซเชียลอะไรบ้าง"
+  expect_docs: [conduct]
+  tags: [career]
+- id: R035
+  company: SF
+  role: employee
+  question: "งบฝึกอบรมต่อคนต่อปีของโรงงานเท่าไหร่ แล้วคอร์สไหนต้องทำสัญญาอยู่ต่อ"
+  expect_docs: [training]
+  tags: [career]
+- id: R036
+  company: SF
+  role: employee
+  question: "จะขอหนังสือรับรองเงินเดือนและเปลี่ยนเลขบัญชีต้องทำที่ไหน"
+  expect_docs: [hr_faq]
+  tags: [faq]
+- id: R037
+  company: SF
+  role: employee
+  question: "เครื่องพิมพ์ในโรงงานมีปัญหา แจ้งใครได้"
+  expect_docs: [it_faq]
+  tags: [faq]
+- id: R038
+  company: SF
+  role: employee
+  question: "เบอร์ติดต่อของแผนกหลัก HR IT Payroll และเสาธาระถน้ำคืนของโรงงานอยู่ตรงไหน"
+  expect_docs: [directory_contacts]
+  tags: [contact]
+- id: R039
+  company: SF
+  role: employee
+  question: "ทำงานล่วงเวลาคิดเป็นกี่เท่า แล้วค่ากะดึกเท่าไหร่อะ"
+  expect_docs: [sf_shift_ot]
+  tags: [company_specific, work, colloquial]
+- id: R040
+  company: SF
+  role: employee
+  question: "เข้าโซนผลิตต้องใส่อะไรบ้าง"
+  expect_docs: [sf_safety_gmp]
+  tags: [company_specific, work]
+- id: R041
+  company: SF
+  role: employee
+  question: "รถรับส่งพนักงานมีกี่สาย ออกจากโรงงานตรงเวลาไหม แล้วกินข้าวที่ไหน"
+  expect_docs: [sf_shuttle_canteen]
+  tags: [company_specific, faq]
+- id: R042
+  company: SF
+  role: hr
+  question: "ขอช่วงเงินเดือนของตำแหน่งพนักงานควบคุมเครื่องจักรกับหัวหน้าสายการผลิต"
+  expect_docs: [salary_bands]
+  tags: [restricted, pay]
+- id: R043
+  company: SF
+  role: hr
+  question: "ถ้ามีพนักงานทำผิดวินัยจะสอบสวนและลงโทษกันยังไง"
+  expect_docs: [disciplinary]
+  tags: [restricted, career]
+- id: R044
+  company: SF
+  role: employee
+  question: "วันนักขัตฤกษ์ที่โรงงานเปิดสาย ค่าจ้างต่างกันยังไง"
+  expect_docs: [working_time, sf_shift_ot]
+  tags: [work]
+- id: R045
+  company: SF
+  role: employee
+  question: "payroll ตัดงดอัตราได้วันไหน ถ้าอยากแก้เงินเดือนผิดต้องทำอย่างไร"
+  expect_docs: [payroll]
+  tags: [pay, english-mix]
+- id: R046
+  company: SF
+  role: employee
+  question: "ลากิจต้องแจ้งล่วงหน้ากี่วัน แล้วลาบวชได้กี่วัน"
+  expect_docs: [special_leave]
+  tags: [leave]
+
+- id: R047
+  company: AR
+  role: employee
+  question: "พนักงานโรงแรมมีการลาประเภทไหนบ้าง แล้วใครเป็นคนอนุมัติให้ลา"
+  expect_docs: [leave_overview]
+  tags: [leave, paraphrase]
+- id: R048
+  company: AR
+  role: employee
+  question: "วันพักร้อนตามอายุงานได้กี่วัน แล้วมีช่วงไหนที่ห้ามลา"
+  expect_docs: [vacation_policy, ar_high_season]
+  tags: [leave]
+- id: R049
+  company: AR
+  role: employee
+  question: "sick leave ต้องใช้ medical certificate ตั้งแต่วันไหน แล้วช่วงไหนที่ต้องใช้ตั้งแต่วันแรก"
+  expect_docs: [sick_leave]
+  tags: [leave, english-mix]
+- id: R050
+  company: AR
+  role: employee
+  question: "ลาคลอดรวมกี่วันและบริษัทจ่ายให้กี่วัน แล้วต้องใช้เอกสารประกอบอะไรบ้าง"
+  expect_docs: [special_leave]
+  tags: [leave]
+- id: R051
+  company: AR
+  role: employee
+  question: "ประกันสุขภาพใช้ค่ารักษานอกโรงพยาบาลได้ถึงเท่าไหร่ต่อครั้ง"
+  expect_docs: [benefits]
+  tags: [benefits]
+- id: R052
+  company: AR
+  role: employee
+  question: "กะเช้ากับกะบ่ายเริ่มงานกี่โมง"
+  expect_docs: [working_time]
+  tags: [work]
+- id: R053
+  company: AR
+  role: employee
+  question: "เงินเดือนออกวันที่เท่าไหร่ แล้ว service charge จ่ายเมื่อไหร่"
+  expect_docs: [payroll, ar_service_charge]
+  tags: [pay, english-mix]
+- id: R054
+  company: AR
+  role: employee
+  question: "ค่าอาหารและค่าที่พักงานนอกรีสอร์ท เบิกได้วงเงินเท่าไหร่"
+  expect_docs: [expense]
+  tags: [pay]
+- id: R055
+  company: AR
+  role: employee
+  question: "วันแรกเข้างานต้องเตรียมอะไรบ้าง แล้วทดลองงานนานเท่าไหร่"
+  expect_docs: [onboarding]
+  tags: [career]
+- id: R056
+  company: AR
+  role: employee
+  question: "ลาออกต้องแจ้งล่วงหน้ากี่วัน แล้วเงินชดเชยจ่ายตอนไหน"
+  expect_docs: [resignation]
+  tags: [career]
+- id: R057
+  company: AR
+  role: employee
+  question: "มาตรฐานการแต่งกายและการดูแลแขกของพนักงานโรงแรมเป็นอย่างไร"
+  expect_docs: [conduct]
+  tags: [career]
+- id: R058
+  company: AR
+  role: employee
+  question: "งบฝึกอบรมต่อคนต่อปีเท่าไหร่ แล้วมีคอร์สภาษาต่างประเทศให้เรียนไหม"
+  expect_docs: [training]
+  tags: [career]
+- id: R059
+  company: AR
+  role: employee
+  question: "ลืมรหัส StaffDesk แล้วจะขอหนังสือรับรองการทำงานทำอย่างไร"
+  expect_docs: [hr_faq]
+  tags: [faq]
+- id: R060
+  company: AR
+  role: employee
+  question: "ถ้าคอมพิวเตอร์หรือระบบไอทีมีปัญหาต้องแจ้งที่ไหน และ Wi-Fi สำหรับพนักงานใช้งานอย่างไร"
+  expect_docs: [it_faq]
+  tags: [faq]
+- id: R061
+  company: AR
+  role: employee
+  question: "เบอร์ติดต่อของแผนกสำคัญ ฝ่ายบุคคล ฝ่ายไอที ฝ่ายเงินเดือน และเสาธาระถน้ำคืนอยู่ตรงไหน"
+  expect_docs: [directory_contacts]
+  tags: [contact]
+- id: R062
+  company: AR
+  role: employee
+  question: "service charge คำนวณจากอะไร แล้วได้เงินวันที่เท่าไหร่"
+  expect_docs: [ar_service_charge]
+  tags: [company_specific, pay]
+- id: R063
+  company: AR
+  role: employee
+  question: "พนักงานกินอาหารที่รีสอร์ทลดราคาได้กี่เปอร์เซ็นต์อะ แล้วพักหอพักค่าเช่าเท่าไหร่"
+  expect_docs: [ar_staff_perks]
+  tags: [company_specific, benefits, colloquial]
+- id: R064
+  company: AR
+  role: employee
+  question: "ช่วงไหนที่ห้ามลาพักร้อน แล้วถ้าป่วยในช่วงนั้นต้องมีใบรับรองแพทย์ไหม"
+  expect_docs: [ar_high_season, sick_leave]
+  tags: [company_specific, leave]
+- id: R065
+  company: AR
+  role: hr
+  question: "ขอดูโครงสร้างเงินเดือนและช่วงเงินของพนักงานต้อนรับกับหัวหน้าแม่บ้าน"
+  expect_docs: [salary_bands]
+  tags: [restricted, pay]
+- id: R066
+  company: AR
+  role: hr
+  question: "ถ้าต้องปรับโครงสร้างองค์กร คำนวณเงินชดเชยรายช่วงอายุงานอย่างไร"
+  expect_docs: [restructuring]
+  tags: [restricted, career]
+- id: R067
+  company: AR
+  role: employee
+  question: "ค่าทักษะภาษาอังกฤษหรือภาษาจีนรับได้เท่าไหร่"
+  expect_docs: [ar_staff_perks]
+  tags: [company_specific, benefits]
+- id: R068
+  company: AR
+  role: employee
+  question: "วันนักขัตฤกษ์ที่ต้องมาทำงานได้ค่าแรงเพิ่มหรือเลือกวันหยุดชดเชย"
+  expect_docs: [ar_high_season, working_time]
+  tags: [company_specific, work]
+- id: R069
+  company: AR
+  role: employee
+  question: "ตรวจสุขภาพประจำปีฟรีไหม แล้วพนักงานครัวได้ตรวจโรคติดต่อทางอาหารด้วยไหม"
+  expect_docs: [benefits]
+  tags: [benefits]
+- id: R070
+  company: TT
+  role: manager
+  question: "ลูกทีมแจ้งลาป่วย หัวหน้าต้องทำอะไรบ้าง"
+  expect_docs: [manager_guide]
+  tags: [manager]
+- id: R071
+  company: SF
+  role: manager
+  question: "จะอนุมัติค่าล่วงเวลา OT ของลูกทีมอย่างไร"
+  expect_docs: [manager_guide]
+  tags: [manager]
+- id: R072
+  company: AR
+  role: manager
+  question: "ประเมินพนักงานทดลองงานต้องทำอย่างไร"
+  expect_docs: [manager_guide]
+  tags: [manager]
+- id: R073
+  company: TT
+  role: hr
+  question: "ขั้นตอนสอบสวนเมื่อพบการกระทำผิดวินัยเป็นอย่างไร"
+  expect_docs: [disciplinary]
+  tags: [hr_only]
+- id: R074
+  company: AR
+  role: hr
+  question: "ขั้นตอนสอบสวนเมื่อพบการกระทำผิดวินัยเป็นอย่างไร"
+  expect_docs: [disciplinary]
+  tags: [hr_only]
+- id: R075
+  company: TT
+  role: executive
+  question: "อัตราค่าชดเชยตามอายุงานเมื่อปรับโครงสร้างองค์กรเป็นอย่างไร"
+  expect_docs: [restructuring]
+  tags: [executive]
+- id: R076
+  company: SF
+  role: executive
+  question: "อัตราค่าชดเชยตามอายุงานเมื่อปรับโครงสร้างองค์กรเป็นอย่างไร"
+  expect_docs: [restructuring]
+  tags: [executive]
