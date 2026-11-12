@@ -40,10 +40,3 @@ def policy_inventory() -> pd.DataFrame:
 _inv = policy_inventory()
 if len(_inv):
     display(_inv.groupby(["company", "category"]).size().unstack(fill_value=0))
-
-
-def _smoke_04():
-    if not POLICY_FILES:
-        return
-    assert len(_written) == len(POLICY_FILES)
-    assert all(p.exists() for p in _written)

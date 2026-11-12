@@ -11,31 +11,18 @@
 # - ถ้าคะแนน rerank ของทุก chunk ต่ำกว่าเกณฑ์ → "ไม่พบข้อมูล" แล้วแนะนำติดต่อ HR (ไม่เดา)
 
 # %%
-RERANK_MIN = 0.05          # คะแนน rerank ขั้นต่ำที่ยอมรับเป็นหลักฐาน (ปรับหลังทดลองจริง)
-RRF_K = 60
+from pythainlp.tokenize import word_tokenize as _wt
 
-try:
-    from pythainlp.tokenize import word_tokenize as _wt
-except Exception:           # ไม่มี pythainlp -> ใช้ bigram แทน (เฉพาะตอนทดสอบในเครื่อง)
-    _wt = None
+RERANK_MIN = 0.05          # คะแนน rerank ขั้นต่ำที่ยอมรับเป็นหลักฐาน
+RRF_K = 60
 
 _TOKEN_RE = re.compile(r"[฀-๿a-zA-Z0-9]+")
 
 
 def tokenize_th(text: str):
     """ตัดคำไทย/อังกฤษสำหรับ BM25"""
-    text = text.lower()
-    if _wt is not None:
-        toks = _wt(text, engine="newmm", keep_whitespace=False)
-    else:
-        toks = []
-        for w in _TOKEN_RE.findall(text):
-            if re.match(r"[฀-๿]", w):
-                toks += [w[i:i + 2] for i in range(max(len(w) - 1, 1))]
-            else:
-                toks.append(w)
     out = []
-    for t in toks:
+    for t in _wt(text.lower(), engine="newmm", keep_whitespace=False):
         t = t.strip()
         if not t or not _TOKEN_RE.search(t):
             continue
@@ -166,54 +153,14 @@ class Retriever:
         return None
 
 
-retriever = None
-try:
-    retriever = Retriever(*load_index(), embed_fn, rerank_fn)
-    print(f"Retriever พร้อม: {len(retriever.chunks)} chunks")
-except Exception as e:                     # ยังไม่มีไฟล์นโยบาย/ดัชนี
-    print("สร้าง Retriever ไม่ได้:", e)
+retriever = Retriever(*load_index(), embed_fn, rerank_fn)
+print(f"Retriever พร้อม: {len(retriever.chunks)} chunks")
 
 # %% [markdown]
 # **ทดลอง 1 คำถาม** — พนักงานบริษัท TT ถามเรื่องใบรับรองแพทย์ ดูตารางผู้สมัครและคะแนนแต่ละขั้น
 
 # %%
-if retriever is not None:
-    _u = {"company_id": 1, "role": "employee"}
-    _r = retriever.search("ลาป่วยต้องมีใบรับรองแพทย์ตั้งแต่กี่วัน", _u)
-    print(" → ".join(f"{a}: {b}" for a, b in _r["funnel"]))
-    display(pd.DataFrame(_r["candidates"])[["fused_rank", "rerank_rank", "doc_id", "heading", "dense", "bm25", "rerank", "selected"]].round(3))
-
-
-def _smoke_06():
-    # โครงจำลอง: 2 บริษัท, มีเอกสารจำกัดสิทธิ์ และเอกสารฉบับเก่า -> ตรวจว่ากรองถูกก่อนค้นหา
-    def row(cid, co, doc, roles, status, text):
-        return {"chunk_id": cid, "company_id": co, "company_code": "TT" if co == 1 else "SF", "doc_id": doc,
-                "title": doc, "title_en": doc, "heading": "h", "allowed_roles": roles, "status": status,
-                "effective_date": "2026-01-01", "version": 1, "category": "x", "source_file": f"{doc}.md",
-                "n_chars": len(text), "text": text}
-    A = ["employee", "manager", "hr", "executive"]
-    rows = [row("TT:sick:0", 1, "sick_leave", A, "active", "ลาป่วยต้องมีใบรับรองแพทย์ตั้งแต่ 3 วัน"),
-            row("TT:vac:0", 1, "vacation_policy", A, "active", "ลาพักร้อนล่วงหน้า 5 วัน"),
-            row("TT:vac1:0", 1, "vacation_policy_v1", A, "superseded", "ลาพักร้อนฉบับเก่า 6 วัน"),
-            row("TT:sal:0", 1, "salary_bands", ["hr", "executive"], "active", "โครงสร้างเงินเดือน Senior 75,000-110,000"),
-            row("TT:dis:0", 1, "disciplinary", ["hr"], "active", "ขั้นตอนสอบสวนวินัย"),
-            row("SF:sick:0", 2, "sick_leave", A, "active", "ลาป่วยต้องมีใบรับรองแพทย์ตั้งแต่ 2 วัน")]
-    df = pd.DataFrame(rows)
-    E = embed_fn(df["text"].tolist())
-    R = Retriever(df, E, embed_fn, rerank_fn)
-    emp = {"company_id": 1, "role": "employee"}
-    r = R.search("ใบรับรองแพทย์ลาป่วย", emp)
-    assert [c for _, c in r["funnel"][:4]] == [6, 5, 3, 2], r["funnel"]
-    docs = {c["doc_id"] for c in r["candidates"]}
-    assert not docs & {"salary_bands", "disciplinary", "vacation_policy_v1"}, docs
-    assert all(x["chunk_id"].startswith("TT:") for x in r["candidates"])        # ไม่มี chunk บริษัทอื่นรั่ว
-    assert set(r["hidden_by_role"]) == {"salary_bands", "disciplinary"} and r["hidden_by_version"] == ["vacation_policy_v1"]
-    hr = R.search("โครงสร้างเงินเดือน", {"company_id": 1, "role": "hr"})
-    assert "salary_bands" in hr["accessible_docs"] and "disciplinary" in hr["accessible_docs"]
-    ex = R.search("โครงสร้างเงินเดือน", {"company_id": 1, "role": "executive"})
-    assert "salary_bands" in ex["accessible_docs"] and "disciplinary" not in ex["accessible_docs"]
-    R.search("zzzzzz qqqq", emp)                                               # ไม่มีคำตรงกันเลย ต้องไม่พัง
-    none = R.search("x", {"company_id": 99, "role": "employee"})
-    assert none["candidates"] == [] and none["final"] == []
-    assert R.rank_of_docs(r["stage_orders"]["dense"], {"sick_leave"}) is not None
-    assert tokenize_th("ลาป่วยต้องมีใบรับรองแพทย์") and BM25([["a", "b"], ["b"]]).scores(["a"])[0] > 0
+_u = {"company_id": 1, "role": "employee"}
+_r = retriever.search("ลาป่วยต้องมีใบรับรองแพทย์ตั้งแต่กี่วัน", _u)
+print(" → ".join(f"{a}: {b}" for a, b in _r["funnel"]))
+display(pd.DataFrame(_r["candidates"])[["fused_rank", "rerank_rank", "doc_id", "heading", "dense", "bm25", "rerank", "selected"]].round(3))

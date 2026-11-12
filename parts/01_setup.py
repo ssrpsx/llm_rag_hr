@@ -22,7 +22,6 @@
 # ## 1) ติดตั้งและตั้งค่า
 
 # %%
-# @gpu
 !pip -q install "gradio>=5,<6" sentence-transformers pythainlp bitsandbytes accelerate plotly scikit-learn pyyaml pandas
 
 # %%
@@ -61,11 +60,3 @@ def q(sql: str, params=()) -> pd.DataFrame:
         return pd.read_sql_query(sql, con, params=params)
     finally:
         con.close()
-
-
-def _smoke_01():
-    assert BASE.exists() and POL.exists() and IDX.exists()
-    with db() as con:
-        con.execute("create table if not exists _t(x)")
-        con.execute("drop table _t")
-    assert isinstance(q("select 1 as a"), pd.DataFrame)

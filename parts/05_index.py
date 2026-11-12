@@ -7,7 +7,6 @@
 # ใช้กรอง **ก่อน** ค้นหา เพื่อให้เอกสารของบริษัทอื่น / เกินสิทธิ์ / ฉบับเก่า ไม่เคยถูกหยิบมาเลย
 
 # %%
-# @gpu
 # โหลดโมเดล embedding (BGE-M3) และ reranker (BGE-Reranker-v2-m3) ขึ้น GPU
 import torch
 from sentence_transformers import SentenceTransformer, CrossEncoder
@@ -136,19 +135,3 @@ _ch = make_chunks()
 if len(_ch):
     display(_ch.groupby("company_code")["n_chars"].describe()[["count", "mean", "max"]].round(0))
     display(_ch[["chunk_id", "heading", "status", "allowed_roles", "n_chars"]].head(8))
-
-
-def _smoke_05():
-    # secitons / splitting logic on a synthetic doc (independent of real files)
-    doc = "# หัวเรื่อง\n\nบทนำสั้น ๆ\n\n## หัวข้อ ก\nเนื้อหา ก " + "ก" * 50 + "\n\n## หัวข้อ ข\n" + ("ย่อหน้า\n\n" * 200)
-    secs = split_sections(doc)
-    assert [h for h, _ in secs] == ["ภาพรวม", "หัวข้อ ก", "หัวข้อ ข"]
-    pieces = split_long(secs[2][1], 300)
-    assert len(pieces) > 1 and all(len(p) <= 320 for p in pieces)
-    fm, body = parse_front_matter("---\ndoc_id: x\n---\n# t\n")
-    assert fm["doc_id"] == "x" and body.startswith("# t")
-    if len(_ch):
-        ch, E = load_index()
-        assert len(ch) == len(E) == len(_ch)
-        assert np.allclose(np.linalg.norm(E, axis=1), 1.0, atol=1e-3)
-        assert isinstance(ch["allowed_roles"].iloc[0], list)

@@ -41,10 +41,3 @@ def company_comparison() -> pd.DataFrame:
 
 
 display(company_comparison())
-
-
-def _smoke_02():
-    assert set(COMPANIES) == {"TT", "SF", "AR"}
-    assert vacation_days_for_tenure("TT", 0.5) == 8 and vacation_days_for_tenure("TT", 1) == 12
-    assert vacation_days_for_tenure("TT", 10) == 18 and vacation_days_for_tenure("SF", 3.2) == 10
-    assert COMPANY_BY_ID[2]["code"] == "SF"

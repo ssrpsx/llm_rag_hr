@@ -10,6 +10,5 @@
 # 5. แท็บ **Data Explorer** → เปิด/ปิด "มุมมองตามสิทธิ์" เพื่อเทียบข้อมูลดิบกับที่แต่ละตำแหน่งเห็น · แท็บ **Evaluation** → รันชุดทดสอบ
 
 # %%
-# @launch
 demo = build_ui()
 demo.queue().launch(share=True, debug=True)

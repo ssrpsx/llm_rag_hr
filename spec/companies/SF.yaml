@@ -104,10 +104,6 @@ holidays:
     - {date: "2026-08-14", name_th: ปิดโรงงานบำรุงรักษา, name_en: Plant Maintenance Shutdown, note_th: ปิดโรงงานบำรุงรักษาเครื่องจักร}
     - {date: "2026-12-30", name_th: ปิดโรงงานสิ้นปี, name_en: Year-end Plant Shutdown, note_th: ปิดโรงงานสิ้นปี}
   work_note_th: สายการผลิตที่ต้องเดินเครื่องต่อเนื่องอาจให้ทำงานในวันหยุดโดยได้รับค่าจ้างวันหยุดตามอัตรา OT
-extras_facts:
-  - {doc_id: sf_shift_ot, values: [120, 1.5, 3]}
-  - {doc_id: sf_safety_gmp, values: [3]}
-  - {doc_id: sf_shuttle_canteen, values: [5]}
 org:
   - {role: executive, dept_th: ผู้บริหาร, dept_en: Executive, position_th: กรรมการผู้จัดการ, position_en: Managing Director, level: Executive, count: 1, band: [150000, 190000]}
   - {role: hr, dept_th: ฝ่ายทรัพยากรบุคคล, dept_en: Human Resources, position_th: ผู้จัดการฝ่ายทรัพยากรบุคคล, position_en: HR Manager, level: Manager, count: 1, band: [60000, 85000]}

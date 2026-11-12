@@ -2,7 +2,6 @@
 """Assemble hr_rag_colab.ipynb from parts/*.py (percent format) + embedded data.
 
 Usage:  python tools/build_notebook.py [--out PATH]
-Also importable: collect_cells(upto=None) -> list[dict] (used by smoke_test.py).
 """
 from __future__ import annotations
 
@@ -19,17 +18,11 @@ ROOT = Path(__file__).resolve().parents[1]
 PARTS = ROOT / "parts"
 DEFAULT_OUT = ROOT / "hr_rag_colab.ipynb"
 
-# part number -> short name (for "missing part" warnings)
-EXPECTED_PARTS = {
-    1: "setup", 2: "spec", 3: "mock_db", 4: "mock_policies", 5: "index", 6: "retriever",
-    7: "tools", 8: "agent", 9: "viz", 10: "eval", 11: "ui", 12: "launch",
-}
-
 MARK = re.compile(r"^# %%(\s*\[markdown\])?\s*$")
 
 
-def _load_yaml(path: Path, default):
-    return yaml.safe_load(path.read_text(encoding="utf-8")) if path.exists() else default
+def _load_yaml(path: Path):
+    return yaml.safe_load(path.read_text(encoding="utf-8"))
 
 
 def _lit(name: str, obj) -> str:
@@ -40,14 +33,12 @@ def _lit(name: str, obj) -> str:
 
 
 def embedded_source() -> str:
-    spec = {p.stem: yaml.safe_load(p.read_text(encoding="utf-8"))
-            for p in sorted((ROOT / "spec" / "companies").glob("*.yaml"))}
-    seeds_path = ROOT / "spec" / "seeds" / "names.json"
-    seeds = json.loads(seeds_path.read_text(encoding="utf-8")) if seeds_path.exists() else {}
+    spec = {p.stem: _load_yaml(p) for p in sorted((ROOT / "spec" / "companies").glob("*.yaml"))}
+    seeds = json.loads((ROOT / "spec" / "seeds" / "names.json").read_text(encoding="utf-8"))
     policies = {f"{p.parent.name}/{p.name}": p.read_text(encoding="utf-8")
                 for p in sorted((ROOT / "data_src" / "policies").glob("*/*.md"))}
-    ev_r = _load_yaml(ROOT / "data_src" / "eval" / "retrieval_qa.yaml", [])
-    ev_g = _load_yaml(ROOT / "data_src" / "eval" / "guardrail_cases.yaml", [])
+    ev_r = _load_yaml(ROOT / "data_src" / "eval" / "retrieval_qa.yaml")
+    ev_g = _load_yaml(ROOT / "data_src" / "eval" / "guardrail_cases.yaml")
     return "\n".join([
         "# %% [markdown]",
         "# ## 0) ข้อมูลที่ฝังมากับ Notebook (สร้างอัตโนมัติ)",
@@ -105,17 +96,14 @@ def parse_percent(text: str, origin: str) -> list[dict]:
             continue
         if c["kind"] == "markdown":
             lines = [re.sub(r"^# ?", "", l) for l in lines]
-        first = next((l.strip() for l in lines if l.strip()), "")
         c["source"] = "\n".join(lines)
-        c["gpu"] = first.startswith("# @gpu")
-        c["launch"] = first.startswith("# @launch")
         del c["lines"]
         out.append(c)
     return out
 
 
 def code_for_exec(source: str) -> str:
-    """Strip IPython-only lines (!pip, %magic) so the cell can be parsed/executed by plain Python."""
+    """Strip IPython-only lines (!pip, %magic) so the cell can be parsed by plain Python."""
     return "\n".join("pass" if re.match(r"\s*[!%]", l) else l for l in source.splitlines())
 
 
@@ -124,19 +112,10 @@ def part_number(path: Path) -> int:
     return int(m.group(1)) if m else 999
 
 
-def collect_cells(upto: int | None = None, warn: bool = True) -> list[dict]:
+def collect_cells() -> list[dict]:
     cells = parse_percent(embedded_source(), "00_embedded_data")
-    present = set()
     for p in sorted(PARTS.glob("*.py"), key=lambda p: (part_number(p), p.name)):
-        n = part_number(p)
-        if upto is not None and n > upto:
-            continue
-        present.add(n)
         cells += parse_percent(p.read_text(encoding="utf-8"), p.name)
-    if warn:
-        for n, name in EXPECTED_PARTS.items():
-            if (upto is None or n <= upto) and n not in present:
-                print(f"WARN: part {n:02d}_{name} not found", file=sys.stderr)
     return cells
 
 

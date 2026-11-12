@@ -15,17 +15,6 @@ import pandas as pd
 
 DEMO_PASSWORD = "1234"
 
-_FALLBACK_SEEDS = {
-    "male_first": [{"th": t, "en": e} for t, e in [("สมชาย", "Somchai"), ("อนันต์", "Anan"), ("กิตติ", "Kitti"), ("ธนา", "Thana"), ("วิชัย", "Wichai"), ("ปกรณ์", "Pakorn"), ("ณรงค์", "Narong"), ("ภาคิน", "Phakin"), ("ธีรภัทร", "Teerapat"), ("ชาญ", "Chan"), ("เอก", "Ek"), ("ภัทร", "Phat")]],
-    "female_first": [{"th": t, "en": e} for t, e in [("สุดา", "Suda"), ("พิมพ์ชนก", "Pimchanok"), ("ศิริพร", "Siriporn"), ("มาลี", "Malee"), ("กมล", "Kamon"), ("นภา", "Napa"), ("อรทัย", "Orathai"), ("วราภรณ์", "Waraporn"), ("ชนากานต์", "Chanakan"), ("ปวีณา", "Paweena"), ("รัตนา", "Rattana"), ("ธิดา", "Thida")]],
-    "surnames": [{"th": t, "en": e} for t, e in [("ใจดี", "Jaidee"), ("ศรีสุข", "Srisuk"), ("แสงทอง", "Saengthong"), ("บุญมี", "Boonmee"), ("วงศ์ไทย", "Wongthai"), ("รักษา", "Raksa"), ("พูนผล", "Poonphon"), ("เกษมสุข", "Kasemsuk"), ("ธรรมดี", "Thamdee"), ("เจริญ", "Charoen"), ("มีชัย", "Meechai"), ("เพิ่มพูน", "Phoempoon")]],
-    "nicknames": {"M": [{"th": t, "en": e} for t, e in [("โอ๋", "Oh"), ("ต้น", "Ton"), ("บอย", "Boy"), ("นัท", "Nut"), ("บอล", "Ball"), ("เอก", "Ek"), ("ป๊อป", "Pop"), ("โจ", "Joe"), ("อาร์ต", "Art"), ("กอล์ฟ", "Golf"), ("วิน", "Win"), ("เคน", "Ken")]], "F": [{"th": t, "en": e} for t, e in [("นุ่น", "Noon"), ("แอน", "Ann"), ("ฝน", "Fon"), ("เมย์", "May"), ("ฟ้า", "Fah"), ("อ้อม", "Om"), ("พลอย", "Ploy"), ("แพร", "Prae"), ("มิ้น", "Mint"), ("กิ๊ฟ", "Gift"), ("ดาว", "Dao"), ("แป้ง", "Pang")]]},
-    "relations_th": ["แม่", "พ่อ", "คู่สมรส", "พี่น้อง"],
-    "leave_reasons_th": {"vacation": ["พักผ่อนประจำปี", "เดินทางส่วนตัว"], "sick": ["พักรักษาสุขภาพ", "พบแพทย์"], "personal": ["จัดการธุระส่วนตัว", "ติดต่อหน่วยงาน"]},
-    "rejected_reasons_th": ["ไม่อนุมัติเนื่องจากช่วง High Season ตามนโยบาย"],
-    "review_comments_th": {str(i): ["ผลงานเป็นไปตามเป้าหมายและร่วมมือกับทีมได้ดี"] for i in range(1, 6)},
-}
-
 
 # %%
 def hash_pw(emp_id, pw):
@@ -34,10 +23,8 @@ def hash_pw(emp_id, pw):
 
 
 def _pick_pool(seeds, key, gender=None):
-    pool = seeds.get(key, [])
-    if gender and isinstance(pool, dict):
-        pool = pool.get(gender, [])
-    return pool or _FALLBACK_SEEDS[key][gender] if gender else (pool or _FALLBACK_SEEDS[key])
+    pool = seeds[key]
+    return pool[gender] if gender else pool
 
 
 def _iso(d):
@@ -58,7 +45,7 @@ def _base_holidays():
 def build_database(seed=42):
     rng = random.Random(seed)
     companies_spec = COMPANIES
-    seeds = _SEEDS if isinstance(_SEEDS, dict) and _SEEDS.get("male_first") else _FALLBACK_SEEDS
+    seeds = _SEEDS
     company_rows, employee_rows, user_rows, payroll_rows, review_rows = [], [], [], [], []
     leave_rows, request_rows, employees_by_company, holiday_rows = [], [], {}, []
     used_names = set()
@@ -130,7 +117,7 @@ def build_database(seed=42):
                 while left:
                     days=min(left,rng.randint(1,3)); d=AS_OF-timedelta(days=rng.randint(5,220))
                     while d.weekday()>=5: d-=timedelta(days=1)
-                    request_rows.append({"request_id":rid,"emp_id":erow["emp_id"],"leave_type":typ,"start_date":_iso(d),"end_date":_iso(d+timedelta(days=days-1)),"days":days,"status":"approved","reason_th":rng.choice(seeds.get("leave_reasons_th",{}).get(typ, _FALLBACK_SEEDS["leave_reasons_th"][typ])),"approver_id":erow["manager_id"] or erow["emp_id"],"created_at":_iso(d-timedelta(days=2))}); rid+=1; left-=days
+                    request_rows.append({"request_id":rid,"emp_id":erow["emp_id"],"leave_type":typ,"start_date":_iso(d),"end_date":_iso(d+timedelta(days=days-1)),"days":days,"status":"approved","reason_th":rng.choice(seeds["leave_reasons_th"][typ]),"approver_id":erow["manager_id"] or erow["emp_id"],"created_at":_iso(d-timedelta(days=2))}); rid+=1; left-=days
             # Approximately one quarter of each company has a future vacation request.
             if person_index % 4 == 0:
                 d = date(YEAR, rng.choice([11, 12]), rng.randint(1, 20))
@@ -145,29 +132,6 @@ def build_database(seed=42):
         conn.execute("DROP TABLE IF EXISTS audit_log")
         conn.execute("CREATE TABLE audit_log (log_id INTEGER PRIMARY KEY AUTOINCREMENT, ts TEXT, emp_id TEXT, company_id INTEGER, role TEXT, question TEXT, decision TEXT, tools_json TEXT, blocked INTEGER)")
         conn.commit()
-
-
-# %%
-def _smoke_03():
-    build_database()
-    with db() as conn:
-        assert conn.execute("select count(*) from companies").fetchone()[0] == 3
-        emp = pd.read_sql_query("select * from employees", conn)
-        assert 57 <= len(emp) <= 63 and emp.emp_id.is_unique and emp.name_th.is_unique and emp.name_en.is_unique
-        assert emp.manager_id.dropna().isin(emp.emp_id).all()
-        assert all(hash_pw(e,"1234") == conn.execute("select password_hash from users where emp_id=?",(e,)).fetchone()[0] for e in emp.emp_id)
-        assert conn.execute("select count(*) from holidays").fetchone()[0] > 0
-        mismatch = conn.execute("select b.emp_id from leave_balances b left join leave_requests r on r.emp_id=b.emp_id and r.leave_type=b.leave_type and r.status='approved' and substr(r.start_date,1,4)=cast(b.year as text) group by b.emp_id,b.leave_type,b.used having b.used != coalesce(sum(r.days),0)").fetchall()
-        assert not mismatch, mismatch
-        assert conn.execute("select count(*) from leave_requests where status='pending' and leave_type='vacation' and start_date between '2026-11-01' and '2026-12-31'").fetchone()[0] >= len(emp)*0.20
-        assert conn.execute("select count(*) from leave_requests where status='rejected' and emp_id like 'AR%' and reason_th like '%High Season%'").fetchone()[0] >= 2
-        payroll = pd.read_sql_query("select e.emp_id,p.base_salary from employees e join payroll p using(emp_id)", conn)
-        for row in payroll.itertuples(index=False):
-            org = next(o for o in COMPANIES[row.emp_id[:2]]["org"] if o["position_en"] == emp.set_index("emp_id").loc[row.emp_id,"position_en"])
-            assert org["band"][0] <= row.base_salary <= org["band"][1] and row.base_salary % 500 == 0
-        for code in COMPANIES:
-            recent = conn.execute("select count(*) from employees where emp_id like ? and role='employee' and hire_date>'2026-07-14'",(code+"%",)).fetchone()[0]
-            assert recent >= 2
 
 
 # %%

@@ -99,10 +99,6 @@ holidays:
   skip: ["04-06", "05-04", "06-03", "10-13", "10-23"]
   extra: []
   work_note_th: โรงแรมเปิดบริการทุกวัน พนักงานที่ต้องทำงานในวันหยุดนักขัตฤกษ์ได้ค่าแรงเพิ่ม 1 เท่า หรือเลือกวันหยุดชดเชยภายใน 30 วัน
-extras_facts:
-  - {doc_id: ar_service_charge, values: [10]}
-  - {doc_id: ar_staff_perks, values: [50, 30, 500]}
-  - {doc_id: ar_high_season, values: [14]}
 org:
   - {role: executive, dept_th: ผู้บริหาร, dept_en: Executive, position_th: ผู้จัดการทั่วไป, position_en: General Manager, level: Executive, count: 1, band: [130000, 170000]}
   - {role: hr, dept_th: ฝ่ายทรัพยากรบุคคล, dept_en: Human Resources, position_th: ผู้จัดการฝ่ายทรัพยากรบุคคล, position_en: HR Manager, level: Manager, count: 1, band: [55000, 80000]}

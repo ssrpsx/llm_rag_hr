@@ -1,5 +1,4 @@
 # ThaiTech Software (TT) - FICTIONAL company. Single source of truth for numbers.
-# Policy .md files, the SQLite generator and the eval sets MUST agree with this file.
 code: TT
 id: 1
 name_th: ไทยเทค ซอฟต์แวร์
@@ -99,11 +98,7 @@ holidays:
     - {date: "2026-01-02", name_th: วันหยุดพิเศษปีใหม่, name_en: New Year Extra Holiday, note_th: บริษัทประกาศหยุดเพิ่ม}
     - {date: "2026-08-14", name_th: วันครบรอบบริษัท, name_en: Company Anniversary Day, note_th: Company Day}
   work_note_th: ไม่มีการทำงานในวันหยุดนักขัตฤกษ์ ยกเว้นทีม on-call
-extras_facts:                # numbers that MUST appear in the company-specific docs
-  - {doc_id: tt_remote_equipment, values: [700, 3]}
-  - {doc_id: tt_esop, values: [4, 1]}
-  - {doc_id: tt_oncall_hackathon, values: [500]}
-org:                         # drives employees table. count = number of people
+org:
   - {role: executive, dept_th: ผู้บริหาร, dept_en: Executive, position_th: ประธานเจ้าหน้าที่บริหาร, position_en: Chief Executive Officer, level: Executive, count: 1, band: [180000, 220000]}
   - {role: hr, dept_th: ฝ่ายทรัพยากรบุคคล, dept_en: Human Resources, position_th: ผู้จัดการฝ่ายทรัพยากรบุคคล, position_en: HR Manager, level: Manager, count: 1, band: [80000, 110000]}
   - {role: hr, dept_th: ฝ่ายทรัพยากรบุคคล, dept_en: Human Resources, position_th: เจ้าหน้าที่ทรัพยากรบุคคล, position_en: HR Officer, level: Junior, count: 1, band: [28000, 40000]}

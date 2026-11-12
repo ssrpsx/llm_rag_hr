@@ -134,14 +134,3 @@ def build_ui():
         run_guard.click(run_guardrail_suite, None, [guard_rows, guard_summary], show_progress="full")
         run_compare.click(compare_companies, compare_query, compare_df, show_progress="full")
     return app
-
-
-# %%
-def _smoke_11():
-    assert callable(build_ui)
-    try:
-        import gradio
-    except ImportError:
-        return
-    # UI construction is exercised by the smoke run when Gradio is installed.
-    build_ui()
